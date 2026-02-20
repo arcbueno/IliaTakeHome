@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { User, UserDocument } from "./schemas/user.schema";
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose/dist/common/mongoose.decorators";
+import { UserMapper, UserResponseDto } from "./mappers/user.mapper";
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
+    const emailExists = await this.userModel.findOne({
+      email: createUserDto.email,
+    });
+    if (emailExists) {
+      throw new ConflictException("A contact with this email already exists");
+    }
+
+    const nameExists = await this.userModel.findOne({
+      name: createUserDto.name,
+    });
+    if (nameExists) {
+      throw new ConflictException("A name with this name already exists");
+    }
+    const createdUser = new this.userModel(createUserDto);
+    const savedUser = await createdUser.save();
+    return UserMapper.toDto(savedUser);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<UserResponseDto[]> {
+    const users = await this.userModel.find().exec();
+    return UserMapper.toDtoList(users);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string): Promise<UserResponseDto> {
+    const deletedUser = await this.userModel.findByIdAndDelete(id).exec();
+    if (!deletedUser) {
+      throw new NotFoundException("User not found");
+    }
+    return UserMapper.toDto(deletedUser);
   }
 }
