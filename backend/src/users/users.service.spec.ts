@@ -8,7 +8,7 @@ import { Model } from "mongoose";
 describe("UsersService", () => {
   let sut: UsersService;
 
-  // Definição do Tipo do Mock para Intellisense
+  // Mock Type Definition for Intellisense
   type MockModel = Model<User> & {
     create: jest.Mock;
     findOne: jest.Mock;
@@ -20,28 +20,28 @@ describe("UsersService", () => {
 
   let model: MockModel;
 
-  // Mock do documento "salvo" (instância)
+  // Mock of the "saved" document (instance)
   const mockUserInstance = {
     save: jest.fn(),
   };
 
-  // Mock da Classe Model (construtor e estáticos)
+  // Mock of the Model Class (constructor and statics)
   const mockUserModel = jest
     .fn()
     .mockImplementation(() => mockUserInstance) as unknown as MockModel;
 
-  // Adiciona métodos estáticos ao mock do Model
+  // Add static methods to the Model mock
   mockUserModel.findOne = jest.fn();
   mockUserModel.find = jest.fn();
   mockUserModel.findOneAndDelete = jest.fn();
   mockUserModel.findByIdAndDelete = jest.fn();
 
-  // Função auxiliar para criar a instância do SUT (System Under Test)
+  // Helper function to create the SUT (System Under Test) instance
   const makeSut = async (): Promise<{
     sut: UsersService;
     model: MockModel;
   }> => {
-    jest.clearAllMocks(); // Limpa chamadas anteriores
+    jest.clearAllMocks(); // Clear previous calls
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -88,7 +88,7 @@ describe("UsersService", () => {
       expect(model.findOne).toHaveBeenCalledWith({
         email: createUserDto.email,
       });
-      expect(mockUserModel).toHaveBeenCalledWith(createUserDto); // Corrigido para verificar construtor
+      expect(mockUserModel).toHaveBeenCalledWith(createUserDto); // Check constructor call
       expect(mockUserInstance.save).toHaveBeenCalled();
       expect(result).toEqual({
         id: "some-id",
