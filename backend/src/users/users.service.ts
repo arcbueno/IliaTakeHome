@@ -16,16 +16,11 @@ export class UsersService {
     const emailExists = await this.userModel.findOne({
       email: createUserDto.email,
     });
+
     if (emailExists) {
-      throw new ConflictException("A contact with this email already exists");
+      throw new ConflictException("User with this email already exists");
     }
 
-    const nameExists = await this.userModel.findOne({
-      name: createUserDto.name,
-    });
-    if (nameExists) {
-      throw new ConflictException("A name with this name already exists");
-    }
     const createdUser = new this.userModel(createUserDto);
     const savedUser = await createdUser.save();
     return UserMapper.toDto(savedUser);

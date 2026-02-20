@@ -3,27 +3,27 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateUserDto {
   @ApiProperty({
-    description: "O nome do usuário.",
-    example: "João Silva",
+    description: " The name of the user.",
+    example: "John Doe",
   })
-  @IsString({ message: "O nome deve ser uma string válida." })
-  @IsNotEmpty({ message: "O nome é obrigatório." })
+  @IsString({ message: "Name must be a valid string." })
+  @IsNotEmpty({ message: "Name is required." })
   name: string;
 
   @ApiProperty({
-    description: "O e-mail do usuário.",
-    example: "teste@exemplo.com",
+    description: "The email of the user.",
+    example: "test@example.com",
   })
-  @IsEmail({}, { message: "O e-mail informado é inválido." })
-  @IsNotEmpty({ message: "O e-mail é obrigatório." })
+  @IsEmail({}, { message: "Invalid email provided." })
+  @IsNotEmpty({ message: "Email is required." })
   email: string;
 
   @ApiProperty({
-    description: "O telefone do usuário.",
-    example: "+55 11 91234-5678",
+    description: "The phone of the user.",
+    example: "+1 555 1234",
     required: false,
   })
-  @IsString({ message: "O telefone deve ser uma string válida." })
+  @IsString({ message: "Phone must be a valid string." })
   @IsOptional()
   phone?: string;
 }

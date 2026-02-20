@@ -4,6 +4,7 @@ export class UserResponseDto {
   id: string;
   name: string;
   email: string;
+  phone?: string;
 }
 
 export class UserMapper {
@@ -12,6 +13,7 @@ export class UserMapper {
       id: user._id.toString(),
       name: user.name,
       email: user.email,
+      phone: user.phone,
     };
   }
 

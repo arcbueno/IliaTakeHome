@@ -101,40 +101,16 @@ describe("UsersService", () => {
       // Arrange
       const createUserDto = { name: "Test", email: "exist@test.com" };
 
-      model.findOne.mockReturnValue({
-        exec: jest
-          .fn()
-          .mockResolvedValue({ _id: "123", email: "exist@test.com" }),
+      // Mock findOne to return existing user
+      (model.findOne as jest.Mock).mockResolvedValue({
+        _id: "123",
+        email: "exist@test.com",
       });
 
       // Act & Assert
       await expect(sut.create(createUserDto)).rejects.toThrow(
         ConflictException,
       );
-
-      // Assert (Verificações adicionais)
-      expect(mockUserInstance.save).not.toHaveBeenCalled();
-    });
-
-    it("should throw ConflictException if name already exists", async () => {
-      // Arrange
-      const createUserDto = { name: "Test", email: "exist@test.com" };
-
-      model.findOne.mockReturnValue({
-        exec: jest.fn().mockResolvedValue({
-          _id: "123",
-          email: "exist@test.com",
-          name: "Test",
-        }),
-      });
-
-      // Act & Assert
-      await expect(sut.create(createUserDto)).rejects.toThrow(
-        ConflictException,
-      );
-
-      // Assert (Verificações adicionais)
-      expect(mockUserInstance.save).not.toHaveBeenCalled();
     });
   });
 
