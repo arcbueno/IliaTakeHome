@@ -10,7 +10,6 @@ async function bootstrap() {
     .setTitle("Ilia Contacts API")
     .setDescription("The Ilia Take Home API description")
     .setVersion("1.0")
-    .addTag("users")
     .build();
 
   app.useGlobalPipes(
