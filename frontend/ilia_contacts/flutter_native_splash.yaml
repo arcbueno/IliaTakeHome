@@ -1,0 +1,15 @@
+flutter_native_splash:
+  color: "#42a5f5"
+  # image: assets/splash.png # You will need to add an asset or change this.
+  # branding: assets/branding.png
+  color_dark: "#121212"
+  # image_dark: assets/splash_dark.png
+  # branding_dark: assets/branding_dark.png
+
+  android_12:
+    # image: assets/splash_12.png
+    icon_background_color: "#42a5f5"
+    # image_dark: assets/splash_12_dark.png
+    icon_background_color_dark: "#121212"
+
+  web: false
