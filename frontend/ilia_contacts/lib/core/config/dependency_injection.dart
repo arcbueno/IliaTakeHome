@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:ilia_contacts/core/config/environment_variables.dart';
+import 'package:ilia_contacts/core/repositories/contacts_repository.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 final GetIt getIt = GetIt.instance;
 
-Future<void> setupLocator() async {
+Future<void> setupLocator(EnvironmentVariables environmentVariables) async {
   // Logger
   getIt.registerLazySingleton<Logger>(() => Logger());
 
@@ -13,10 +15,7 @@ Future<void> setupLocator() async {
   getIt.registerLazySingleton<Dio>(() {
     final dio = Dio(
       BaseOptions(
-        baseUrl: String.fromEnvironment(
-          'API_URL',
-          defaultValue: 'https://api.example.com',
-        ),
+        baseUrl: environmentVariables.apiUrl,
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
       ),
@@ -32,10 +31,10 @@ Future<void> setupLocator() async {
         maxWidth: 90,
       ),
     );
-    // Add base options here later, e.g. from .env
-    // dio.options.baseUrl = dotenv.env['API_URL'] ?? '';
     return dio;
   });
 
-  // Register repositories and use cases here
+  getIt.registerLazySingleton<ContactsRepository>(
+    () => ContactsRepositoryImpl(getIt<Dio>(), getIt<Logger>()),
+  );
 }
