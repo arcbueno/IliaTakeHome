@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ilia_contacts/features/contacts/contacts_list/contacts_list_page.dart';
 import '../../features/splash/splash_page.dart';
-import '../../features/contacts/contacts_page.dart'; // Placeholder, I'll create this next
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
@@ -13,9 +13,9 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/contacts',
+      path: ContactsListPage.routeName,
       builder: (BuildContext context, GoRouterState state) {
-        return const ContactsPage();
+        return const ContactsListPage();
       },
     ),
   ],

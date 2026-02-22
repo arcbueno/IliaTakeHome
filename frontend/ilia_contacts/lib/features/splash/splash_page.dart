@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ilia_contacts/features/contacts/contacts_list/contacts_list_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -16,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         // Navigate to home after splash
-        context.go('/contacts');
+        context.go(ContactsListPage.routeName);
       }
     });
   }
