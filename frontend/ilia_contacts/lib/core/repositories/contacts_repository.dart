@@ -36,6 +36,7 @@ class ContactsRepositoryImpl implements ContactsRepository {
   @override
   Future<Result<void>> deleteContact(String contactId) async {
     try {
+      await Future.delayed(const Duration(seconds: 2));
       await _dio.delete('$route/$contactId');
       return const Result.ok(null);
     } catch (error, stacktrace) {

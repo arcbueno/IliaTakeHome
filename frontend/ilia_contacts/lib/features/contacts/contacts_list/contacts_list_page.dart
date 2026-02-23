@@ -3,18 +3,35 @@ import 'package:go_router/go_router.dart';
 import 'package:ilia_contacts/core/config/dependency_injection.dart';
 import 'package:ilia_contacts/features/contacts/contacts_list/contacts_list_viewmodel.dart';
 import 'package:ilia_contacts/features/contacts/create_contact/create_contact_page.dart';
+import 'package:ilia_contacts/features/contacts/widgets/contact_list_item.dart';
 import 'package:ilia_contacts/features/contacts/widgets/empty_contacts_list_widget.dart';
 import 'package:ilia_contacts/features/contacts/widgets/loading_list_component.dart';
 
-class ContactsListPage extends StatelessWidget {
+class ContactsListPage extends StatefulWidget {
   static const routeName = '/contacts/list';
   const ContactsListPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Initialize the ViewModel with the repository from GetIt
-    final viewModel = ContactsListViewmodel(getIt.get());
+  State<ContactsListPage> createState() => _ContactsListPageState();
+}
 
+class _ContactsListPageState extends State<ContactsListPage> {
+  late final ContactsListViewmodel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = ContactsListViewmodel(getIt.get());
+  }
+
+  @override
+  void dispose() {
+    viewModel.state.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Contacts List')),
       floatingActionButton: FloatingActionButton(
@@ -41,14 +58,13 @@ class ContactsListPage extends StatelessWidget {
                   }
                   return ListView.builder(
                     itemCount: contacts.length,
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       final contact = contacts[index];
-                      return ListTile(
-                        leading: CircleAvatar(
-                          child: Text(contact.initials),
-                        ), // Simple avatar
-                        title: Text(contact.name),
-                        subtitle: Text(contact.email),
+                      return ContactListItem(
+                        key: ValueKey(contact.id),
+                        contact: contact,
+                        deleteContact: viewModel.deleteContact,
                       );
                     },
                   );

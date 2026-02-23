@@ -25,6 +25,11 @@ class LoadingListComponent extends StatelessWidget {
               color: Theme.of(context).colorScheme.surface,
               margin: EdgeInsets.only(top: 8),
             ),
+            trailing: Container(
+              width: 24,
+              height: 24,
+              color: Theme.of(context).colorScheme.surface,
+            ),
           ),
         );
       },

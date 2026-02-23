@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ilia_contacts/core/error/system_exception.dart';
 import 'package:ilia_contacts/core/repositories/contacts_repository.dart';
+import 'package:ilia_contacts/core/utils/result.dart';
 import 'package:ilia_contacts/features/contacts/contacts_list/contacts_list_state.dart';
 
 class ContactsListViewmodel {
@@ -12,6 +13,21 @@ class ContactsListViewmodel {
 
   ContactsListViewmodel(this._contactsRepository) {
     fetchContacts();
+  }
+
+  Future<Result<void>> deleteContact(String id) async {
+    final result = await _contactsRepository.deleteContact(id);
+    await result.fold(
+      onOk: (_) async => await fetchContacts(),
+      onError: (error) async {
+        if (error is SystemException) {
+          state.value = ContactsListError(error.message);
+          return;
+        }
+        state.value = ContactsListError('An unexpected error occurred');
+      },
+    );
+    return result;
   }
 
   Future<void> fetchContacts() async {
