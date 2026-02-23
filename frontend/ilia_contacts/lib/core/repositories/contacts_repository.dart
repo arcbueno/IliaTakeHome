@@ -3,12 +3,13 @@ import 'package:ilia_contacts/core/error/email_exists_exception.dart';
 import 'package:ilia_contacts/core/error/network_error_exception.dart';
 import 'package:ilia_contacts/core/error/not_found_exception.dart';
 import 'package:ilia_contacts/core/models/contact_model.dart';
+import 'package:ilia_contacts/core/models/create_contact_dto.dart';
 import 'package:ilia_contacts/core/utils/result.dart';
 import 'package:logger/logger.dart';
 
 abstract class ContactsRepository {
   Future<Result<List<ContactModel>>> fetchContacts();
-  Future<Result<void>> addContact(ContactModel contact);
+  Future<Result<void>> addContact(CreateContactDto contact);
   Future<Result<void>> deleteContact(String contactId);
 }
 
@@ -21,8 +22,9 @@ class ContactsRepositoryImpl implements ContactsRepository {
   ContactsRepositoryImpl(this._dio, this._logger);
 
   @override
-  Future<Result<void>> addContact(ContactModel contact) async {
+  Future<Result<void>> addContact(CreateContactDto contact) async {
     try {
+      await Future.delayed(const Duration(seconds: 2));
       await _dio.post(route, data: contact.toMap());
       return const Result.ok(null);
     } catch (error, stacktrace) {

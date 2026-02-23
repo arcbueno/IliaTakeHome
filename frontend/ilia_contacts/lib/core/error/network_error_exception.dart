@@ -1,4 +1,7 @@
-class NetworkErrorException implements Exception {
+import 'package:ilia_contacts/core/error/system_exception.dart';
+
+class NetworkErrorException implements SystemException {
+  @override
   final String message;
 
   NetworkErrorException(String errorMessage)
