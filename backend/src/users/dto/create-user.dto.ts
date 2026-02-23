@@ -21,7 +21,6 @@ export class CreateUserDto {
   @ApiProperty({
     description: "The phone of the user.",
     example: "+1 555 1234",
-    required: false,
   })
   @IsString({ message: "Phone must be a valid string." })
   @IsOptional()
