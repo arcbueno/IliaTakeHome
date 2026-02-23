@@ -12,9 +12,7 @@ class ContactsListViewmodel {
     ContactsListInitial(),
   );
 
-  ContactsListViewmodel(this._contactsRepository) {
-    fetchContacts();
-  }
+  ContactsListViewmodel(this._contactsRepository);
 
   Future<Result<void>> deleteContact(String id) async {
     final result = await _contactsRepository.deleteContact(id);

@@ -23,6 +23,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
   void initState() {
     super.initState();
     viewModel = ContactsListViewmodel(getIt.get());
+    viewModel.fetchContacts();
   }
 
   @override

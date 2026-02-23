@@ -25,7 +25,6 @@ class ContactsRepositoryImpl implements ContactsRepository {
   @override
   Future<Result<void>> addContact(CreateContactDto contact) async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
       await _dio.post(route, data: contact.toMap());
       return const Result.ok(null);
     } catch (error, stacktrace) {
@@ -37,7 +36,6 @@ class ContactsRepositoryImpl implements ContactsRepository {
   @override
   Future<Result<void>> deleteContact(String contactId) async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
       await _dio.delete('$route/$contactId');
       return const Result.ok(null);
     } catch (error, stacktrace) {
@@ -49,11 +47,8 @@ class ContactsRepositoryImpl implements ContactsRepository {
   @override
   Future<Result<List<ContactModel>>> fetchContacts() async {
     try {
-      await Future.delayed(
-        const Duration(seconds: 2),
-      ); // Simulate network delay
       final response = await _dio.get(route);
-      final List data = response.data as List;
+      final List<dynamic> data = response.data as List<dynamic>;
       final contacts = data.map((e) => ContactModel.fromMap(e)).toList();
       return Result.ok(contacts);
     } catch (error, stacktrace) {
