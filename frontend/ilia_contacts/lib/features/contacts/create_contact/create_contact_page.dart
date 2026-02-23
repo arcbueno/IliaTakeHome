@@ -24,7 +24,7 @@ class CreateContactPage extends StatelessWidget {
           if (viewModel.createContactCommand.running) {
             return Stack(
               children: [
-                child!,
+                IgnorePointer(child: child!),
                 BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Center(child: CircularProgressIndicator()),
@@ -37,9 +37,7 @@ class CreateContactPage extends StatelessWidget {
               viewModel.createContactCommand.result!.fold(
                 onOk: (_) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('contact_created_success'.tr()),
-                    ),
+                    SnackBar(content: Text('contact_created_success'.tr())),
                   );
                   viewModel.createContactCommand.clearResult();
                   Navigator.of(context).pop(); // Go back to the contacts list
@@ -51,9 +49,7 @@ class CreateContactPage extends StatelessWidget {
                     ).showSnackBar(SnackBar(content: Text(error.message)));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('unexpected_error'.tr()),
-                      ),
+                      SnackBar(content: Text('unexpected_error'.tr())),
                     );
                   }
 
@@ -71,6 +67,9 @@ class CreateContactPage extends StatelessWidget {
           onValidateName: viewModel.validateName,
           onValidateEmail: viewModel.validateEmail,
           onSubmit: () {
+            FocusScope.of(
+              context,
+            ).requestFocus(FocusNode()); // Dismiss the keyboard
             if (formKey.currentState?.validate() ?? false) {
               viewModel.createContactCommand.execute();
             }

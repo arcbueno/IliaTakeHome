@@ -42,11 +42,11 @@ class _ContactsListPageState extends State<ContactsListPage> {
         },
         child: const Icon(Icons.add),
       ),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            viewModel.fetchContacts();
-          },
+      body: RefreshIndicator(
+        onRefresh: () async {
+          viewModel.fetchContacts();
+        },
+        child: SafeArea(
           child: ValueListenableBuilder(
             valueListenable: viewModel.state,
             builder: (context, state, _) {
@@ -55,11 +55,22 @@ class _ContactsListPageState extends State<ContactsListPage> {
                 loading: () => LoadingListComponent(),
                 loaded: (contacts) {
                   if (contacts.isEmpty) {
-                    return const EmptyContactsListWidget();
+                    return LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: constraints.maxHeight,
+                            ),
+                            child: const EmptyContactsListWidget(),
+                          ),
+                        );
+                      },
+                    );
                   }
                   return ListView.builder(
                     itemCount: contacts.length,
-                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       final contact = contacts[index];
                       return ContactListItem(
