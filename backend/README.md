@@ -56,7 +56,7 @@ Create an application composed of a backend and a mobile app that allows user re
 
 The API is documented using Swagger. Once the application is running, you can access the interactive documentation at:
 
-**[http://localhost:3000/api](http://localhost:3000/api)**
+**[http://localhost:3000/docs](http://localhost:3000/docs)**
 
 This interface allows you to explore the endpoints, view request/response schemas, and test requests directly from the browser.
 
