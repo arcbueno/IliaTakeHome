@@ -6,6 +6,7 @@ import 'package:ilia_contacts/features/contacts/contacts_list/contacts_list_view
 import 'package:ilia_contacts/features/contacts/create_contact/create_contact_page.dart';
 import 'package:ilia_contacts/features/contacts/widgets/contact_list_item.dart';
 import 'package:ilia_contacts/features/contacts/widgets/empty_contacts_list_widget.dart';
+import 'package:ilia_contacts/features/contacts/widgets/list_error_widget.dart';
 import 'package:ilia_contacts/features/contacts/widgets/loading_list_component.dart';
 
 class ContactsListPage extends StatefulWidget {
@@ -82,8 +83,24 @@ class _ContactsListPageState extends State<ContactsListPage> {
                     },
                   );
                 },
-                error: (message) =>
-                    Center(child: Text('error_message'.tr(args: [message]))),
+                error: (message) => LayoutBuilder(
+                  builder: (context, constraints) {
+                    return ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
+                          child: ListErrorWidget(
+                            message: 'error_message'.tr(args: [message]),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               );
             },
           ),
