@@ -36,15 +36,15 @@ class _ContactListItemState extends State<ContactListItem> {
                 result.fold(
                   onOk: (_) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                       SnackBar(
-                        content: Text('contact_deleted_success'.tr()),
-                      ),
+                      SnackBar(content: Text('contact_deleted_success'.tr())),
                     );
                   },
                   onError: (error) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('contact_delete_error'.tr(args: [error.toString()])),
+                        content: Text(
+                          'contact_delete_error'.tr(args: [error.toString()]),
+                        ),
                       ),
                     );
                   },

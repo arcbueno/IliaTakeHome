@@ -48,14 +48,18 @@ class _CreateContactFormState extends State<CreateContactForm> {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'email_label'.tr()),
+                      decoration: InputDecoration(
+                        labelText: 'email_label'.tr(),
+                      ),
                       onChanged: widget.onEmailChanged,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) => widget.onValidateEmail(value),
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'phone_label'.tr()),
+                      decoration: InputDecoration(
+                        labelText: 'phone_label'.tr(),
+                      ),
                       onChanged: widget.onPhoneChanged,
                     ),
                   ],

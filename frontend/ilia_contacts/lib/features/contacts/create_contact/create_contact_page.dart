@@ -7,15 +7,33 @@ import 'package:ilia_contacts/core/error/system_exception.dart';
 import 'package:ilia_contacts/features/contacts/create_contact/create_contact_viewmodel.dart';
 import 'package:ilia_contacts/features/contacts/widgets/create_contact_form.dart';
 
-class CreateContactPage extends StatelessWidget {
+class CreateContactPage extends StatefulWidget {
   static const routeName = '/contacts/create';
   const CreateContactPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final viewModel = CreateContactViewmodel(getIt.get());
-    final formKey = GlobalKey<FormState>();
+  State<CreateContactPage> createState() => _CreateContactPageState();
+}
 
+class _CreateContactPageState extends State<CreateContactPage> {
+  late final CreateContactViewmodel viewModel;
+  late final GlobalKey<FormState> formKey;
+
+  @override
+  initState() {
+    formKey = GlobalKey<FormState>();
+    viewModel = CreateContactViewmodel(getIt());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    viewModel.createContactCommand.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('create_contact_title'.tr())),
       body: ListenableBuilder(
