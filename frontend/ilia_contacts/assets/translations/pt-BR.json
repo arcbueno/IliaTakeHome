@@ -1,0 +1,22 @@
+{
+    "app_title": "Contatos Ilia",
+    "contacts_list_title": "Lista de Contatos",
+    "initializing": "Inicializando...",
+    "error_message": "Erro: {}",
+    "no_contacts_found": "Nenhum contato encontrado",
+    "contact_deleted_success": "Contato excluído com sucesso",
+    "contact_delete_error": "Falha ao excluir contato: {}",
+    "create_contact_title": "Criar Contato",
+    "contact_created_success": "Contato criado com sucesso",
+    "unexpected_error": "Ocorreu um erro inesperado",
+    "name_label": "Nome",
+    "email_label": "E-mail",
+    "phone_label": "Telefone",
+    "create_button": "Criar",
+    "email_exists_error": "O endereço de e-mail já está em uso por outra conta.",
+    "network_error": "Ocorreu um erro de rede. Verifique sua conexão e tente novamente. Detalhes do erro: {}",
+    "contact_not_found_error": "Contato não encontrado.",
+    "system_exception_prefix": "SystemException: {}",
+    "unknown_network_error": "Erro de rede desconhecido",
+    "unexpected_error_with_details": "Ocorreu um erro inesperado: {}"
+}

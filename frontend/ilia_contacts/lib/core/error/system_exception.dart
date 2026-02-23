@@ -1,8 +1,8 @@
-abstract class SystemException implements Exception {
-  final String message;
+import 'package:easy_localization/easy_localization.dart';
 
-  SystemException(this.message);
+abstract class SystemException implements Exception {
+  String get message;
 
   @override
-  String toString() => 'SystemException: $message';
+  String toString() => 'system_exception_prefix'.tr(args: [message]);
 }

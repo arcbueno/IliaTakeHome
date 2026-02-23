@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ilia_contacts/core/config/dependency_injection.dart';
@@ -33,7 +34,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Contacts List')),
+      appBar: AppBar(title: Text('contacts_list_title'.tr())),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await context.push(CreateContactPage.routeName);
@@ -50,7 +51,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
             valueListenable: viewModel.state,
             builder: (context, state, _) {
               return state.when(
-                initial: () => const Center(child: Text('Initializing...')),
+                initial: () => Center(child: Text('initializing'.tr())),
                 loading: () => LoadingListComponent(),
                 loaded: (contacts) {
                   if (contacts.isEmpty) {
@@ -69,7 +70,8 @@ class _ContactsListPageState extends State<ContactsListPage> {
                     },
                   );
                 },
-                error: (message) => Center(child: Text('Error: $message')),
+                error: (message) =>
+                    Center(child: Text('error_message'.tr(args: [message]))),
               );
             },
           ),

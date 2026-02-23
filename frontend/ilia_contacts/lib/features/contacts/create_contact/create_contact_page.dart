@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:ilia_contacts/core/config/dependency_injection.dart';
 import 'package:ilia_contacts/core/error/system_exception.dart';
@@ -16,7 +17,7 @@ class CreateContactPage extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Contact')),
+      appBar: AppBar(title: Text('create_contact_title'.tr())),
       body: ListenableBuilder(
         listenable: viewModel.createContactCommand,
         builder: (context, child) {
@@ -36,8 +37,8 @@ class CreateContactPage extends StatelessWidget {
               viewModel.createContactCommand.result!.fold(
                 onOk: (_) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Contact created successfully'),
+                    SnackBar(
+                      content: Text('contact_created_success'.tr()),
                     ),
                   );
                   viewModel.createContactCommand.clearResult();
@@ -50,8 +51,8 @@ class CreateContactPage extends StatelessWidget {
                     ).showSnackBar(SnackBar(content: Text(error.message)));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('An unexpected error occurred'),
+                      SnackBar(
+                        content: Text('unexpected_error'.tr()),
                       ),
                     );
                   }

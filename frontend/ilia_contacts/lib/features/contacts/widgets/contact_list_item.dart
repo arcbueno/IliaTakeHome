@@ -2,6 +2,7 @@ import 'package:ilia_contacts/core/models/contact_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ilia_contacts/core/utils/command.dart';
 import 'package:ilia_contacts/core/utils/result.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ContactListItem extends StatefulWidget {
   final Future<Result<void>> Function(String) deleteContact;
@@ -35,15 +36,15 @@ class _ContactListItemState extends State<ContactListItem> {
                 result.fold(
                   onOk: (_) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Contact deleted successfully'),
+                       SnackBar(
+                        content: Text('contact_deleted_success'.tr()),
                       ),
                     );
                   },
                   onError: (error) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Failed to delete contact: $error'),
+                        content: Text('contact_delete_error'.tr(args: [error.toString()])),
                       ),
                     );
                   },

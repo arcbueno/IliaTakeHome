@@ -6,6 +6,7 @@ import 'package:ilia_contacts/core/models/contact_model.dart';
 import 'package:ilia_contacts/core/models/create_contact_dto.dart';
 import 'package:ilia_contacts/core/utils/result.dart';
 import 'package:logger/logger.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 abstract class ContactsRepository {
   Future<Result<List<ContactModel>>> fetchContacts();
@@ -70,9 +71,11 @@ class ContactsRepositoryImpl implements ContactsRepository {
         return Result<T>.error(NotFoundException());
       }
       return Result<T>.error(
-        NetworkErrorException(error.message ?? 'Unknown network error'),
+        NetworkErrorException(error.message ?? 'unknown_network_error'.tr()),
       );
     }
-    return Result<T>.error(Exception('An unexpected error occurred: $error'));
+    return Result<T>.error(
+      Exception('unexpected_error_with_details'.tr(args: [error.toString()])),
+    );
   }
 }

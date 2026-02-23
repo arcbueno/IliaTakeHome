@@ -1,0 +1,22 @@
+{
+    "app_title": "Ilia Contacts",
+    "contacts_list_title": "Contacts List",
+    "initializing": "Initializing...",
+    "error_message": "Error: {}",
+    "no_contacts_found": "No contacts found",
+    "contact_deleted_success": "Contact deleted successfully",
+    "contact_delete_error": "Failed to delete contact: {}",
+    "create_contact_title": "Create Contact",
+    "contact_created_success": "Contact created successfully",
+    "unexpected_error": "An unexpected error occurred",
+    "name_label": "Name",
+    "email_label": "Email",
+    "phone_label": "Phone",
+    "create_button": "Create",
+    "email_exists_error": "The email address is already in use by another account.",
+    "network_error": "A network error occurred. Please check your connection and try again. Error details: {}",
+    "contact_not_found_error": "Contact not found.",
+    "system_exception_prefix": "SystemException: {}",
+  "unknown_network_error": "Unknown network error",
+  "unexpected_error_with_details": "An unexpected error occurred: {}"
+}

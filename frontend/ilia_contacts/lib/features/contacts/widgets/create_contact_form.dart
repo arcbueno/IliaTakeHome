@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Using StatefulWidget to maintain state on keyboard resize and form input
@@ -40,21 +41,21 @@ class _CreateContactFormState extends State<CreateContactForm> {
                   spacing: 8,
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Name'),
+                      decoration: InputDecoration(labelText: 'name_label'.tr()),
                       onChanged: widget.onNameChanged,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) => widget.onValidateName(value),
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Email'),
+                      decoration: InputDecoration(labelText: 'email_label'.tr()),
                       onChanged: widget.onEmailChanged,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) => widget.onValidateEmail(value),
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Phone'),
+                      decoration: InputDecoration(labelText: 'phone_label'.tr()),
                       onChanged: widget.onPhoneChanged,
                     ),
                   ],
@@ -67,7 +68,7 @@ class _CreateContactFormState extends State<CreateContactForm> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: widget.onSubmit,
-                  child: const Text('Create'),
+                  child: Text('create_button'.tr()),
                 ),
               ),
             ],

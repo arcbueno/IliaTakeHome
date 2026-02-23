@@ -1,12 +1,13 @@
 import 'package:ilia_contacts/core/error/system_exception.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NetworkErrorException implements SystemException {
-  @override
-  final String message;
+  final String errorMessage;
 
-  NetworkErrorException(String errorMessage)
-    : message =
-          'A network error occurred. Please check your connection and try again. Error details: $errorMessage';
+  NetworkErrorException(this.errorMessage);
+
+  @override
+  String get message => 'network_error'.tr(args: [errorMessage]);
 
   @override
   String toString() => message;
